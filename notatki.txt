@@ -1,0 +1,25 @@
+composer global require "laravel/installer"
+laravel new laravel
+php artisan make:auth
+php artisan migrate
+php artisan migrate:refresh
+
+https://github.com/fzaninotto/Faker
+php artisan tinker
+$faker = Faker\Factory
+$faker = $faker::create('pl_PL')
+$faker->name
+//generuje polskie falszywe dane
+
+php artisan make:seeder UsersTableSeeder
+str_slug() //zamienia Marcin Prus na marcin-prus
+php artisan db:seed
+php artisan migrate:refresh --seed
+
+dobrym nawykiem jest nazywac controllery w liczbnie mnogiej a model w liczbie pojedynczej
+php artisan make:controller UsersController --resource
+php artisan route:list
+
+alt+insert aby wstawic lorem ipsum
+tab = aby wstawic rozne znaczniki html
+<div class="col-md-3 col-md-offset-1"> //odsuniecie z lewej o 1
