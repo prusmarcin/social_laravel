@@ -10,11 +10,18 @@
                     <form action="{{ url('users/' . $user->id) }}" method="POST">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
+
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset-1">
                                 <div class="form-group">
                                     <label for="">Imię i Nazwisko</label>
-                                    <input type="text" name="name" class="form-control" value="{{ $user->name }}" placeholder="Imię i nazwisko">
+                                    <input type="text" name="name" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" value="{{ $user->name }}" placeholder="Imię i nazwisko">
+                                    
+                                    @if ($errors->has('name'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -22,7 +29,13 @@
                             <div class="col-sm-10 col-sm-offset-1">
                                 <div class="form-group">
                                     <label for="">Email</label>
-                                    <input type="email" name="email" class="form-control" value="{{ $user->email }}" placeholder="Email">
+                                    <input type="email" name="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ $user->email }}" placeholder="Email">
+                                    
+                                    @if ($errors->has('email'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
