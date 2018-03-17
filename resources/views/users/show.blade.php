@@ -13,6 +13,7 @@
                 </div>
 
                 <div class="card-body text-center">
+                     <img src="{{ url('/user-avatar/' . $user->id . '/203') }}" alt="avatar" class="img-thumbnail img-responsive">
                     <h2><a href="{{ url('/users/' . $user->id) }}">{{ $user->name }}</a></h2>   
                     <p> 
                         @if ($user->sex == 'm')

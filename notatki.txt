@@ -23,3 +23,12 @@ php artisan route:list
 alt+insert aby wstawic lorem ipsum
 tab = aby wstawic rozne znaczniki html
 <div class="col-md-3 col-md-offset-1"> //odsuniecie z lewej o 1
+php artisan storage:link
+php artisan migrate:refresh --seed
+
+http://image.intervention.io/ biblioteka do obrobki zdjec
+composer require intervention/image
+php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLaravel5"
+php artisan make:controller ImagesController
+
+https://randomuser.me/documentation

@@ -7,10 +7,27 @@
             <div class="card">
                 <div class="card-header">Edycja użytkownika</div>
                 <div class="card-body">
-                    <form action="{{ url('users/' . $user->id) }}" method="POST">
+                    
+                    <img src="{{ url('/user-avatar/' . $user->id . '/488') }}" alt="avatar" class="img-thumbnail img-responsive">
+                <br><br>
+                    <form action="{{ url('users/' . $user->id) }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PATCH') }}
 
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset-1">
+                                <div class="form-group">
+                                    <label for="">Avatar</label>
+                                    <input type="file" name="avatar" class="form-control{{ $errors->has('avatar') ? ' is-invalid' : '' }}" placeholder="Wybierz plik">
+                                    
+                                    @if ($errors->has('avatar'))
+                                    <span class="invalid-feedback">
+                                        <strong>{{ $errors->first('avatar') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset-1">
                                 <div class="form-group">
