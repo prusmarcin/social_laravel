@@ -13,6 +13,7 @@
             <file>file:/C:/xampp/htdocs/social_laravel/resources/views/layouts/app.blade.php</file>
             <file>file:/C:/xampp/htdocs/social_laravel/resources/views/users/show.blade.php</file>
             <file>file:/C:/xampp/htdocs/social_laravel/database/seeds/DatabaseSeeder.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/app/Http/Controllers/ImagesController.php</file>
             <file>file:/C:/xampp/htdocs/social_laravel/app/Http/Controllers/UsersController.php</file>
         </group>
     </open-files>

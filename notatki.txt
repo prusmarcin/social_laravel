@@ -32,3 +32,12 @@ php artisan vendor:publish --provider="Intervention\Image\ImageServiceProviderLa
 php artisan make:controller ImagesController
 
 https://randomuser.me/documentation
+php artisan migrate:refresh --seed
+
+http://iconfinder.com/ //strona z darmowymi ikonkami
+
+php artisan make:middleware CheckUserPermission //nazwy middelwarow najlepiej czasownik+rzeczownik //w pliku kernel.php ładujemy middleware
+
+php artisan make:controller SearchController
+php artisan make:controller FriendsController --resource
+php artisan make:model Friend --migration

@@ -17,8 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index');
 
-Route::resource('/users', 'UsersController', ['except' => ['index', 'create', 'store']]);//except wyjawszy z routingu te metody ktore sa zbedne
+Route::get('/search', 'SearchController@users');
+
+Route::resource('/users', 'UsersController', ['except' => ['index', 'create', 'store', 'destroy']]);//except wyjawszy z routingu te metody ktore sa zbedne
 
 Route::get('/user-avatar/{id}/{size}', 'ImagesController@user_avatar');
+
+//Route::resource('/friends', 'FriendsController', ['except' => ['create', 'edit', 'show']]);//except wyjawszy z routingu te metody ktore sa zbedne
+//te ponizej sa bardziej czytelne
+Route::get('/friends', 'FriendsController@index');
+Route::post('/friends/{friend}', 'FriendsController@add');
+Route::patch('/friends/{friend}', 'FriendsController@accept');
+Route::delete('/friends/{friend}', 'FriendsController@destroy');

@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome-all.min.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -26,6 +27,14 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
+                    <form action="{{ url('/search') }}" method="GET" class="navbar-form navbar-left">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Szukaj ...">
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
                     <ul class="navbar-nav mr-auto">
 
                     </ul>
