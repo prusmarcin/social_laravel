@@ -18,18 +18,39 @@
                         @endif
                     </p>
                     <p>{{ $user->email }}</p>
+                    
+                    <p><a href="{{ url('/users/' . $user->id . '/friends') }}">Znajomi</a> <span class="badge badge-secondary">{{ $user->friends()->count() }}</span></p>
+                    
                     {{-- Auth::check() sprawdz czy uzytkownik jest zalogowany --}}
                     @if(Auth::check() && $user->id !== Auth::id())
                     
                         {{-- jeżeli znajomosc nie istnieje i nie jest zaakceptowana --}}
-                        @if( ! friendship($user->id)->exists && ! friendship($user->id)->accepted)
-                            <form method='POST' action='{{ url('/friends/' . $user->id) }}'>
+                        @if( ! friendship($user->id)->exists && ! has_friend_invitation($user->id))
+                            
+                           <form method='POST' action='{{ url('/friends/' . $user->id) }}'>
                                 {{ csrf_field() }}
                                 <button class='btn btn-success'>Zaproś do znajomych</button>
                             </form>
+                        
+                        @elseif(has_friend_invitation($user->id))
+                        
+                            <form method='POST' action='{{ url('/friends/' . $user->id) }}'>
+                                {{ csrf_field() }}
+                                {{ method_field('PATCH') }}
+                                <button class='btn btn-primary'>Przyjmij zaproszenie</button>
+                            </form>
+                        
                         {{-- jeżeli znajomosc istnieje i nie jest zaakceptowana --}}
                         @elseif(friendship($user->id)->exists && ! friendship($user->id)->accepted)
                             <button class='btn btn-success disabled'>Zaproszenie wysłane</button>
+                        @elseif(friendship($user->id)->exists && friendship($user->id)->accepted)
+                        
+                            <form method='POST' action='{{ url('/friends/' . $user->id) }}'>
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button class='btn btn-danger'>Usuń ze znajomych</button>
+                            </form>
+                        
                         @endif
                     
                     

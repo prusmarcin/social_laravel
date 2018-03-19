@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
+use App\Friend;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,11 +19,11 @@ class DatabaseSeeder extends Seeder
         /* =============Zmienne=============== */
         $number_of_users = 20;
         $password = 'pass';
-        /* ==================================== */
+        /* ================USERS==================== */
 
-        for ($i = 1; $i <= $number_of_users; $i++) {
+        for ($user_id = 1; $user_id <= $number_of_users; $user_id++) {
 
-            if ($i === 1) {
+            if ($user_id === 1) {
                 DB::table('users')->insert([
                     'name' => 'Marcin Prus',
                     'email' => 'mhome@o2.pl',
@@ -41,7 +42,7 @@ class DatabaseSeeder extends Seeder
                     case 'f':
                         $name = $faker->firstNameFemale . ' ' . $faker->lastNameFemale;
                         $avatar = json_decode(file_get_contents('https://randomuser.me/api/?gender=female'))->results[0]->picture->large;
-                        
+
                         break;
 
                     default:
@@ -56,6 +57,28 @@ class DatabaseSeeder extends Seeder
                     'password' => bcrypt($password),
                     'sex' => $sex,
                 ]);
+            }
+
+            /* ================friends==================== */
+            for ($i = 1; $i <= $faker->numberBetween($min = 0, $max = $number_of_users - 1); $i++) {
+                $friend_id = $faker->numberBetween($min = 1, $max = $number_of_users);
+
+                $friendship_exists= Friend::where([
+                        'user_id' => $user_id,
+                        'friend_id' => $friend_id,
+                    ])->orWhere([
+                        'user_id' => $friend_id,
+                        'friend_id' => $user_id,
+                    ])->exists();
+
+                if( ! $friendship_exists) {
+                    DB::table('friends')->insert([
+                        'user_id' => $user_id,
+                        'friend_id' => $friend_id,
+                        'accepted' => 1,
+                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                    ]);
+                }
             }
         }
     }

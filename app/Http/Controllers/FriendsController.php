@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Friend;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class FriendsController extends Controller
 {
@@ -13,9 +14,10 @@ class FriendsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id)
     {
-        //
+        $user = User::findOrFail($user_id);
+        return view('friends.index', compact('user'));
     }
 
     /**
@@ -26,11 +28,14 @@ class FriendsController extends Controller
      */
     public function add($friend_id)
     {
-        if (friendship($user->id)->exists) {
+        //jesli znajomosc nie istnieje i nie jest zaakceptowana
+        if ( ! friendship($friend_id)->exists && ! friendship($friend_id)->accepted) {
             Friend::create([
                 'user_id' => Auth::id(),
-                'friend_id' => $friend_id
+                'friend_id' => $friend_id,
             ]);
+        } else {
+            $this->accept($friend_id);
         }
 
 
@@ -51,7 +56,14 @@ class FriendsController extends Controller
      */
     public function accept($friend_id)
     {
-        //
+        Friend::where([
+            'user_id' => $friend_id,
+            'friend_id' => Auth::id()
+        ])->update([
+            'accepted' => 1
+        ]);
+        
+        return back();
     }
 
     /**
@@ -62,6 +74,14 @@ class FriendsController extends Controller
      */
     public function destroy($friend_id)
     {
-        //
+        Friend::where([
+            'user_id' => Auth::id(),
+            'friend_id' => $friend_id
+        ])->orWhere([
+            'user_id' => $friend_id,
+            'friend_id' => Auth::id(),
+        ])->delete();
+        
+        return back();
     }
 }

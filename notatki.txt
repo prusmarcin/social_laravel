@@ -41,3 +41,15 @@ php artisan make:middleware CheckUserPermission //nazwy middelwarow najlepiej cz
 php artisan make:controller SearchController
 php artisan make:controller FriendsController --resource
 php artisan make:model Friend --migration
+wazne jest aby uzywac odpowiedniego nazwewnictwa kluczy obcych wtedy eloquent sam wie jakie sa relacje i nie trzeba tego recznie definiowac
+php artisan migrate:refresh --seed
+
+//helpery mozna uzywac w kazdym widoku, kontrolerze
+stworzylismy plik helpers.php i dodamy go do autoload w composer.json
+dodalismy "files": [
+            "app/helpers.php"
+        ]
+	do composer.json
+composer update
+
+php artisan migrate:refresh --seed

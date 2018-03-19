@@ -27,7 +27,7 @@ Route::get('/user-avatar/{id}/{size}', 'ImagesController@user_avatar');
 
 //Route::resource('/friends', 'FriendsController', ['except' => ['create', 'edit', 'show']]);//except wyjawszy z routingu te metody ktore sa zbedne
 //te ponizej sa bardziej czytelne
-Route::get('/friends', 'FriendsController@index');
+Route::get('/users/{user}/friends', 'FriendsController@index');
 Route::post('/friends/{friend}', 'FriendsController@add');
 Route::patch('/friends/{friend}', 'FriendsController@accept');
 Route::delete('/friends/{friend}', 'FriendsController@destroy');
