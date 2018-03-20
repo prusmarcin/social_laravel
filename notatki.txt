@@ -53,3 +53,21 @@ dodalismy "files": [
 composer update
 
 php artisan migrate:refresh --seed
+
+php artisan make:model Post --migration
+php artisan migrate:refresh --seed
+php artisan make:controller PostsController --resource
+php artisan route:list
+
+
+======dodatkowe wskazkowki==========
+Podczas tworzenia postu , zapisywana jest godzina, ale nie aktualna a 2 godziny wczesnie. Zamiast 12:12 jest 10:12 
+W pliku config/app.php zmień timezone z UTC na Europe/Warsaw 
+======
+Mam pytanie czy laravel ma cache na pliki view , bo skopiowałem pliki z kursu wiev o laravel pokazuje stare w przeglądarce 
+Tak, laravel cache'uje widoki.
+Możesz użyć polecenia artisana do wyczyszczenia cache'a
+php artisan view:clear 
+======
+A jak zastosować paginacje dla danych pobieranych na podstawie relacji, bo coś nie mogę do tego dojść? 
+Tutaj masz gotowe rozwiązanie: http://stackoverflow.com/a/25500958

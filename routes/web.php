@@ -31,3 +31,5 @@ Route::get('/users/{user}/friends', 'FriendsController@index');
 Route::post('/friends/{friend}', 'FriendsController@add');
 Route::patch('/friends/{friend}', 'FriendsController@accept');
 Route::delete('/friends/{friend}', 'FriendsController@destroy');
+
+Route::resource('/posts', 'PostsController', ['except' => ['index', 'create']]);//except wyjawszy z routingu te metody ktore sa zbedne

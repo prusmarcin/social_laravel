@@ -26,7 +26,8 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        $posts = $user->posts()->get();//posts z metody posts w modelu user
+        return view('users.show', compact('user', 'posts'));
     }
 
     /**

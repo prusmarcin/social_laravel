@@ -53,4 +53,9 @@ class User extends Authenticatable
         //w tej metodzie laczymy obie metody aby przez wylowanie metody friends pobrac wszystkich typy znajomych
         //metoda merge() dziala w sposob rekursywny i w kontrolerze wywolujac metode friends() trzeba uzyc bez ->get()
     }
+    
+    public function posts()
+    {
+        return $this->hasMany('App\Post')->orderBy('created_at', 'desc');//uzytkownik ma wiele postow
+    }
 }
