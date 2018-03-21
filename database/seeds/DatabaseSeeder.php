@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
         /* =============Zmienne=============== */
         $number_of_users = 20;
+        $max_posts_per_user = 20;
         $password = 'pass';
         /* ================USERS==================== */
 
@@ -80,6 +81,16 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
             }
-        }
+            
+            /* ================POSTS==================== */
+            for ($post_id = 1; $post_id <= $faker->numberBetween($min = 0, $max = $max_posts_per_user); $post_id++) {
+
+                DB::table('posts')->insert([
+                        'user_id' => $user_id,
+                        'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                    ]);
+            }
+        } //koniec petli uzytkownika
     }
 }

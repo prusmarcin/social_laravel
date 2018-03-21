@@ -12,7 +12,7 @@ class UsersController extends Controller
     
     public function __construct()
     {
-        $this->middleware('permission', ['except' => [
+        $this->middleware('user_permission', ['except' => [
             'show'//uruchom middleware wszedzie za wyjatkiem metody show
         ]]);
     }
@@ -26,7 +26,7 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        $posts = $user->posts()->get();//posts z metody posts w modelu user
+        $posts = $user->posts()->paginate(10);//posts z metody posts w modelu user
         return view('users.show', compact('user', 'posts'));
     }
 

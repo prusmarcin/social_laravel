@@ -1,5 +1,9 @@
 <div class="card" style='margin-top:20px;'>
     <div class="card-body">
+        
+        @if(Auth::check() && $post->user_id === Auth::id())
+            @include('posts.include.dropdown_menu')
+        @endif
          
          <div class='clearfix'>
              <img src="{{ url('/user-avatar/' . $post->user->id . '/50') }}" alt="avatar" class="img-thumbnail img-responsive float-left">        
