@@ -18,5 +18,12 @@ class Post extends Model
     public function user()
     {
         return $this->belongsTo('App\User');//dzieki temu w postach bedzie mozna nwyswietlic uzytkownika
+        //post nalezy do 1 uzytkownika
+    }
+    
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+        //jeden post moze miec wiele komentarzy
     }
 }

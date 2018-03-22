@@ -58,6 +58,14 @@ php artisan make:model Post --migration
 php artisan migrate:refresh --seed
 php artisan make:controller PostsController --resource
 php artisan route:list
+php artisan make:middleware CheckPostPermission
+php artisan make:controller WallsController
+php artisan migrate:refresh --seed
+
+php artisan make:controller CommentsController --resource
+php artisan make:model Comment --migration
+php artisan migrate:refresh --seed
+php artisan make:middleware CheckCommentPermission
 
 
 ======dodatkowe wskazkowki==========
@@ -71,3 +79,21 @@ php artisan view:clear
 ======
 A jak zastosować paginacje dla danych pobieranych na podstawie relacji, bo coś nie mogę do tego dojść? 
 Tutaj masz gotowe rozwiązanie: http://stackoverflow.com/a/25500958
+======
+Auth::check() //sprawdza czy uzytkownik jest zalogowany
+Auth::id() // id zalogowanego uzytkownika, jesli nie jest zwraca null
+======
+Zamiast odnosić się ciągle do klasy Auth::class wygodniej jest użyć helpera zapis auth()->id() lub auth()->check() 
+======
+nasluchiwanie polaczenin do bazy danych
+
+db listen query
+
+w App\Providers AppServiceProvider.php
+use Illuminate\Support\Facades\DB;
+
+i w metodzie  boot()
+DB::listen(function ($query){
+            var_dump($query->sql."<br><br>");
+        });
+eager loading //umozliwia optymalizowac

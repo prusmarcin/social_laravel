@@ -4,9 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Post;
+use App\Comment;
 
-class CheckPostPermission
+class CheckCommentPermission
 {
     /**
      * Handle an incoming request.
@@ -17,17 +17,15 @@ class CheckPostPermission
      */
     public function handle($request, Closure $next)
     {
-        
-        $post_exists = Post::where([
-            'id' => $request->post,
-            'user_id' => Auth::id()
-            ])->exists();
-        
-        //jesli uzytkownik jest nie jest zalogowany i post nie istnieje
-        if( ! Auth::check() || ! $post_exists)
-        {
+        $comment_exists = Comment::where([
+            'id' => $request->comment,
+            'user_id' => Auth::id(),
+        ])->exists();
+
+        if ( ! Auth::check() || ! $comment_exists) {
             abort(403, 'Brak dostępu');
         }
+
         return $next($request);
     }
 }

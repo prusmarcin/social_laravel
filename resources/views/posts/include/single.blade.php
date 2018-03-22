@@ -15,6 +15,26 @@
         <div id='post_{{ $post->id }}}' style='margin-top:10px;'>
             {{ $post->content }}
         </div>
+        
+        <hr>
+        <div class='clearfix'>
+            <div class='row'>
+        @if(Auth::check())
+            @include('comments.create')
+        @endif
+            </div>
+        </div>
+        
+        <div class='clearfix'>
+            <div class='row'>
+                <div class='col-md-12'>
+                    @foreach($post->comments()->get() as $comment)
+                        @include('comments.include.single')
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
     </div>                   
 </div>
 

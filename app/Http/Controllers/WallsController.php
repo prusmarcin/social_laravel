@@ -22,9 +22,10 @@ class WallsController extends Controller
             $friend_ids_array[] = $friend->id;
         }
         
-        $posts = Post::whereIn('user_id', $friend_ids_array)
+        $posts = Post::with('comments.user')
+            ->whereIn('user_id', $friend_ids_array)
             ->orderBy('created_at', 'desc')
-            ->paginate(10);
+            ->paginate(10); //eager loading
         
         return view('walls.index', compact('posts'));
     }

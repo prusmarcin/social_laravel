@@ -35,3 +35,5 @@ Route::delete('/friends/{friend}', 'FriendsController@destroy');
 Route::resource('/posts', 'PostsController', ['except' => ['index', 'create']]);//except wyjawszy z routingu te metody ktore sa zbedne
 
 Route::get('/wall', 'WallsController@index');
+
+Route::resource('/comments', 'CommentsController', ['except' => ['index', 'create']]);//except wyjawszy z routingu te metody ktore sa zbedne
