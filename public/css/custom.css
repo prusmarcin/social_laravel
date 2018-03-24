@@ -30,3 +30,7 @@
     color:#262626;
     text-decoration:none;
 }
+
+.trashed {opacity:0.3; transition: opacity .5s;}
+
+.trashed:hover {opacity:1;}

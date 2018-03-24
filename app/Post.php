@@ -23,7 +23,19 @@ class Post extends Model
     
     public function comments()
     {
-        return $this->hasMany('App\Comment');
-        //jeden post moze miec wiele komentarzy
+        if(is_admin()){
+            return $this->hasMany('App\Comment')->withTrashed();
+            //jeden post moze miec wiele komentarzy
+        } else {
+            return $this->hasMany('App\Comment');
+            //jeden post moze miec wiele komentarzy
+        }
+        
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+        //jeden post ma wiele lajkow
     }
 }

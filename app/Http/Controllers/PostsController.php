@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
+use App\Comment;
 
 class PostsController extends Controller
 {
@@ -48,7 +49,14 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::findOrFail($id);
+        if(is_admin())
+        {
+            $post = Post::findOrFail($id)->withTrashed();
+        } else 
+        {
+            $post = Post::findOrFail($id);
+        }
+        
         return view('posts.show', compact('post'));
     }
 
@@ -60,7 +68,14 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        
+        if(is_admin())
+        {
+            $post = Post::findOrFail($id)->withTrashed();
+        } else 
+        {
+            $post = Post::findOrFail($id);
+        }
         return view('posts.edit', compact('post'));
     }
 
@@ -80,9 +95,18 @@ class PostsController extends Controller
             'min' => 'Treść musi mieć minimum :min znaków'
         ]);
         
-        Post::findOrFail($id)->update([
+        if(is_admin){
+            Post::findOrFail($id)->withTrashed()->update([
             'content' => $request->post_content,
         ]);
+        } else 
+        {
+            Post::findOrFail($id)->update([
+            'content' => $request->post_content,
+        ]);
+        }
+        
+        
         
         return back();
     }
@@ -96,7 +120,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         Post::where(['id' => $id])->delete();
-        
+        Comment::where('post_id', $id)->delete();
         return back();
     }
 }

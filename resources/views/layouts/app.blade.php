@@ -47,7 +47,9 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
+                            
                             <li><a class="nav-link" href="{{ url('/wall') }}">Tablica</a></li>
+                            <li><a class="nav-link" href="{{ url('/notifications') }}">Powiadomienia {!! Auth::user()->unreadNotifications->count() > 0 ? '<span class="badge badge-danger">' . Auth::user()->unreadNotifications->count() . '</span>' : '' !!}</a></li>
                             <li><a class="nav-link" href="{{ url('/users/' . Auth::id()) }}">{{ Auth::user()->name }}</a></li>
                             <li class="nav-item dropdown">
                                 

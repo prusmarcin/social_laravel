@@ -22,10 +22,25 @@ class WallsController extends Controller
             $friend_ids_array[] = $friend->id;
         }
         
-        $posts = Post::with('comments.user')
+        if(is_admin())
+        {
+            $posts = Post::with('comments.user')
+                ->with('likes')
+                ->with('comments.likes')
+            ->whereIn('user_id', $friend_ids_array)
+            ->orderBy('created_at', 'desc')
+            ->withTrashed()
+            ->paginate(10); //eager loading
+        } else {
+            $posts = Post::with('comments.user')
+                ->with('likes')
+                ->with('comments.likes')
             ->whereIn('user_id', $friend_ids_array)
             ->orderBy('created_at', 'desc')
             ->paginate(10); //eager loading
+        }
+        
+        
         
         return view('walls.index', compact('posts'));
     }

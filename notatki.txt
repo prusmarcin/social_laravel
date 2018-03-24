@@ -66,7 +66,21 @@ php artisan make:controller CommentsController --resource
 php artisan make:model Comment --migration
 php artisan migrate:refresh --seed
 php artisan make:middleware CheckCommentPermission
+php artisan migrate:refresh --seed
 
+php artisan make:model Role --migration
+php artisan make:model Like --migration
+php artisan make:controller LikesController
+php artisan migrate:refresh --seed
+
+php artisan make:notification FriendRequest
+
+php artisan vendor:publish
+php artisan notification:table //tworzy tabele do notyfikacji
+
+php artisan migrate:refresh --seed
+
+php artisan make:controller NotificationsController
 
 ======dodatkowe wskazkowki==========
 Podczas tworzenia postu , zapisywana jest godzina, ale nie aktualna a 2 godziny wczesnie. Zamiast 12:12 jest 10:12 
@@ -97,3 +111,8 @@ DB::listen(function ($query){
             var_dump($query->sql."<br><br>");
         });
 eager loading //umozliwia optymalizowac
+======
+php artisan vendor:publish //publikuje np. paginacje do view jesli byla uzyta
+======
+{{ }} jest escapowane, więc jeśli chcemy pisać tagi HTML w Blade, (zgodnie ze specyfikacją: https://laravel.com/docs/5.3/blade ) musimy użyć {!! !!} zamiast {{ }} 
+

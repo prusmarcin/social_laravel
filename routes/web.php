@@ -37,3 +37,8 @@ Route::resource('/posts', 'PostsController', ['except' => ['index', 'create']]);
 Route::get('/wall', 'WallsController@index');
 
 Route::resource('/comments', 'CommentsController', ['except' => ['index', 'create']]);//except wyjawszy z routingu te metody ktore sa zbedne
+
+Route::post('/likes', 'LikesController@add');
+Route::delete('/likes', 'LikesController@destroy');
+
+Route::get('/notifications', 'NotificationsController@index');

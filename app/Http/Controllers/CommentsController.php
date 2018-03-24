@@ -47,7 +47,14 @@ class CommentsController extends Controller
      */
     public function edit($id)
     {
-        $comment = Comment::findOrFail($id);
+        if(is_admin())
+        {
+            $comment = Comment::findOrFail($id)->withTrashed();
+        } else 
+        {
+            $comment = Comment::findOrFail($id);
+        }
+        
         return view('comments.edit', compact('comment'));
     }
 
@@ -67,9 +74,16 @@ class CommentsController extends Controller
             'min' => 'Treść musi mieć minimum :min znaków'
         ]);
         
-        Comment::findOrFail($id)->update([
+        if(is_admin())
+        {
+            Comment::findOrFail($id)->withTrashed()->update([
             'content' => $request->comment_content,
         ]);
+        } else {
+            Comment::findOrFail($id)->update([
+            'content' => $request->comment_content,
+        ]);
+        }
         
         return back();
     }

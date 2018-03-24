@@ -2,6 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/social_laravel/app/Notifications/FriendRequest.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/database/migrations/2018_03_24_161434_create_notifications_table.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/app/Http/Controllers/NotificationsController.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/app/Http/Controllers/FriendsController.php</file>
+            <file>file:/C:/xampp/htdocs/social_laravel/resources/views/notifications/index.blade.php</file>
+        </group>
     </open-files>
 </project-private>

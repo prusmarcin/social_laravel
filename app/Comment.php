@@ -20,4 +20,10 @@ class Comment extends Model
         return $this->belongsTo('App\User');
         //komenatrz jest powiazany z 1 uzytkownikiem
     }
+    
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+        //jeden comment ma wiele lajkow
+    }
 }

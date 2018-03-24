@@ -21,6 +21,17 @@ class DatabaseSeeder extends Seeder
         $max_posts_per_user = 20;
         $max_comments_per_post = 20;
         $password = 'pass';
+
+        DB::table('roles')->insert([
+            'id' => 1,
+            'type' => 'admin'
+        ]);
+        
+        DB::table('roles')->insert([
+            'id' => 2,
+            'type' => 'user'
+        ]);
+
         /* ================USERS==================== */
 
         for ($user_id = 1; $user_id <= $number_of_users; $user_id++) {
@@ -31,6 +42,7 @@ class DatabaseSeeder extends Seeder
                     'email' => 'mhome@o2.pl',
                     'password' => bcrypt('marcin17'),
                     'sex' => 'm',
+                    'role_id' => 1
                 ]);
             } else {
                 $sex = $faker->randomElement($array = array('m', 'f'));
@@ -58,6 +70,7 @@ class DatabaseSeeder extends Seeder
                     'avatar' => $avatar,
                     'password' => bcrypt($password),
                     'sex' => $sex,
+                    'role_id' => 2
                 ]);
             }
 
@@ -65,7 +78,7 @@ class DatabaseSeeder extends Seeder
             for ($i = 1; $i <= $faker->numberBetween($min = 0, $max = $number_of_users - 1); $i++) {
                 $friend_id = $faker->numberBetween($min = 1, $max = $number_of_users);
 
-                $friendship_exists= Friend::where([
+                $friendship_exists = Friend::where([
                         'user_id' => $user_id,
                         'friend_id' => $friend_id,
                     ])->orWhere([
@@ -73,7 +86,7 @@ class DatabaseSeeder extends Seeder
                         'friend_id' => $user_id,
                     ])->exists();
 
-                if( ! $friendship_exists) {
+                if (!$friendship_exists) {
                     DB::table('friends')->insert([
                         'user_id' => $user_id,
                         'friend_id' => $friend_id,
@@ -82,26 +95,26 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
             }
-            
+
             /* ================POSTS==================== */
             for ($post_id = 1; $post_id <= $faker->numberBetween($min = 0, $max = $max_posts_per_user); $post_id++) {
 
                 DB::table('posts')->insert([
-                        'user_id' => $user_id,
-                        'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
-                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                    ]);
+                    'user_id' => $user_id,
+                    'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+                    'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                ]);
             }
-            
+
             /* ================COMMENTS==================== */
             for ($comment_id = 1; $comment_id <= $faker->numberBetween($min = 0, $max = $max_comments_per_post); $comment_id++) {
 
                 DB::table('comments')->insert([
-                        'user_id' => $faker->numberBetween($min = 1, $max = $number_of_users),
-                        'post_id' => $faker->numberBetween($min = 1, $max = $number_of_users),
-                        'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
-                        'created_at' => $faker->dateTimeThisYear($max = 'now'),
-                    ]);
+                    'user_id' => $faker->numberBetween($min = 1, $max = $number_of_users),
+                    'post_id' => $faker->numberBetween($min = 1, $max = $number_of_users),
+                    'content' => $faker->paragraph($nbSentences = 1, $variableNbSentences = true),
+                    'created_at' => $faker->dateTimeThisYear($max = 'now'),
+                ]);
             }
         } //koniec petli uzytkownika
     }

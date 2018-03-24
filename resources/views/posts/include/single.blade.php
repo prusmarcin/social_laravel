@@ -1,7 +1,7 @@
-<div class="card" style='margin-top:20px;'>
+<div class="card{{ $post->trashed() ? ' trashed' : '' }}" style='margin-top:20px;'>
     <div class="card-body">
         
-        @if(Auth::check() && $post->user_id === Auth::id())
+        @if(belongs_to_auth($post->user_id) || is_admin())
             @include('posts.include.dropdown_menu')
         @endif
          
@@ -16,7 +16,12 @@
             {{ $post->content }}
         </div>
         
-        <hr>
+        @include('posts.include.likes')
+        
+        <hr style='margin:10px 0px;'>
+        
+        
+        
         <div class='clearfix'>
             <div class='row'>
         @if(Auth::check())

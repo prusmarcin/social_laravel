@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'sex',
+        'name', 'email', 'password', 'sex', 'role_id',
     ];
 
     /**
@@ -57,5 +57,18 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany('App\Post')->orderBy('created_at', 'desc');//uzytkownik ma wiele postow
+    }
+    
+    public function role()
+    {
+        return $this->belongsTo('App\Role');
+        //rola nalezy do uzytkownika
+        //wtedy ten model sprawdza po role_id, w tablicy users spradzana jest role_id i pobierane jest to z roles
+    }
+    
+    public function likes()
+    {
+        return $this->hasMany('App\Like');
+        //jeden uzytkownik moze miec wiele lajkow
     }
 }

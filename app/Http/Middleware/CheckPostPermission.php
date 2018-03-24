@@ -24,7 +24,7 @@ class CheckPostPermission
             ])->exists();
         
         //jesli uzytkownik jest nie jest zalogowany i post nie istnieje
-        if( ! Auth::check() || ! $post_exists)
+        if( (! Auth::check() || ! $post_exists) && (! is_admin()))
         {
             abort(403, 'Brak dostępu');
         }
