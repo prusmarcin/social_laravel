@@ -51,10 +51,10 @@ class PostsController extends Controller
     {
         if(is_admin())
         {
-            $post = Post::findOrFail($id)->withTrashed();
+            $post = Post::withTrashed()->where('id', $id)->first();
         } else 
         {
-            $post = Post::findOrFail($id);
+            $post = Post::where('id', $id)->first();
         }
         
         return view('posts.show', compact('post'));
@@ -71,11 +71,12 @@ class PostsController extends Controller
         
         if(is_admin())
         {
-            $post = Post::findOrFail($id)->withTrashed();
+            $post = Post::withTrashed()->where('id', $id)->first();
         } else 
         {
-            $post = Post::findOrFail($id);
+            $post = Post::where('id', $id)->first();
         }
+        
         return view('posts.edit', compact('post'));
     }
 

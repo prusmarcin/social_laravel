@@ -14,8 +14,16 @@
                     @else
                         <ul class='list-group'>
                             @foreach(Auth::user()->notifications as $notification)
-                                <li class='list-group-item'>
-                                    {{ $notification->data['message'] }}
+                                <li class='list-group-item{{ ! is_null($notification->read_at) ? ' trashed' : '' }}'>
+                                    <?= html_entity_decode($notification->data['message']); ?>
+                                    
+                                    @if(is_null($notification->read_at))
+                                    <form action="{{ url('/notifications/' . $notification->id) }}" method="POST" class="float-right">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PATCH') }}
+                                        <button class="btn btn-info btn-sm float-right" type="submit">Przeczytane</button>
+                                    </form>
+                                    @endif
                                 </li>
                             @endforeach
                         </ul>

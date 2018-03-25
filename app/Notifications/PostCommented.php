@@ -7,18 +7,22 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class FriendRequest extends Notification
+class PostCommented extends Notification
 {
     use Queueable;
+    
+    protected $post_id;
+    protected $comment_id;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($post_id, $comment_id)
     {
-        //
+        $this->post_id = $post_id;
+        $this->comment_id = $comment_id;
     }
 
     /**
@@ -29,7 +33,6 @@ class FriendRequest extends Notification
      */
     public function via($notifiable)
     {
-        //return ['mail', 'database'];
         return ['database'];
     }
 
@@ -56,7 +59,7 @@ class FriendRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'message' => 'Masz zaproszenie do znajomych'
+            'message' => 'Użytkownik ' . auth()->user()->name . ' skomentował <a href="' . url('/posts/' . $this->post_id . '#comment_id' . $this->comment_id) . '">Twój post</a>'
         ];
     }
 }

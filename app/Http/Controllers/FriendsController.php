@@ -5,7 +5,8 @@ use Illuminate\Http\Request;
 use App\Friend;
 use Illuminate\Support\Facades\Auth;
 use App\User;
-use App\Notifications\FriendRequest;
+use App\Notifications\FriendRequestSent;
+use App\Notifications\FriendRequestAccepted;
 
 class FriendsController extends Controller
 {
@@ -36,7 +37,7 @@ class FriendsController extends Controller
                 'friend_id' => $friend_id,
             ]);
             
-            User::findOrFail($friend_id)->notify(new FriendRequest());
+            User::findOrFail($friend_id)->notify(new FriendRequestSent());
         } else {
             $this->accept($friend_id);
         }
@@ -65,6 +66,8 @@ class FriendsController extends Controller
         ])->update([
             'accepted' => 1
         ]);
+        
+        User::findOrFail($friend_id)->notify(new FriendRequestAccepted());
         
         return back();
     }

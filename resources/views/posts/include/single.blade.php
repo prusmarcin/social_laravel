@@ -1,6 +1,6 @@
 <div class="card{{ $post->trashed() ? ' trashed' : '' }}" style='margin-top:20px;'>
     <div class="card-body">
-        
+
         @if(belongs_to_auth($post->user_id) || is_admin())
             @include('posts.include.dropdown_menu')
         @endif

@@ -34,3 +34,11 @@
 .trashed {opacity:0.3; transition: opacity .5s;}
 
 .trashed:hover {opacity:1;}
+
+.highlight {
+	transition: all 1s;
+}
+
+.highlightYellow {
+	background-color: rgba(255, 255, 0, 0.3);
+}
